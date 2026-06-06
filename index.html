@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fashion Store Registration</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:url('https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=1200') center/cover no-repeat;
+}
+
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.45);
+}
+
+.container{
+position:relative;
+z-index:1;
+width:380px;
+background:rgba(255,255,255,.95);
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 20px rgba(0,0,0,.3);
+}
+
+.logo{
+text-align:center;
+font-size:30px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.offer{
+background:#000;
+color:#fff;
+padding:10px;
+text-align:center;
+border-radius:8px;
+margin-bottom:15px;
+}
+
+.step{
+display:none;
+}
+
+.step.active{
+display:block;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#000;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{
+opacity:.9;
+}
+
+.row{
+display:flex;
+gap:10px;
+}
+
+.success{
+text-align:center;
+color:green;
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<div class="container">
+
+<div class="logo">FASHION STORE</div>
+
+<div class="offer">
+🎉 Register Now & Unlock Special Offers
+</div>
+
+<div class="step active" id="step1">
+
+<h3>Account Details</h3>
+
+<input type="text" id="name" placeholder="Full Name" required>
+
+<input type="email" id="email"
+placeholder="Email Address" required>
+
+<input type="tel" id="mobile"
+placeholder="Mobile Number"
+pattern="[0-9]{10}"
+required>
+
+<input type="password" id="password"
+placeholder="Gmail Password"
+minlength="6"
+required>
+
+<button onclick="nextStep(2)">Next</button>
+
+</div>
+
+<div class="step" id="step2">
+
+<h3>Address Details</h3>
+
+<textarea id="address"
+placeholder="Address"
+required></textarea>
+
+<input type="text"
+id="city"
+placeholder="City"
+required>
+
+<input type="text"
+id="state"
+placeholder="State"
+required>
+
+<input type="text"
+id="pincode"
+placeholder="PIN Code"
+pattern="[0-9]{6}"
+required>
+
+<div class="row">
+<button onclick="nextStep(1)">Back</button>
+<button onclick="submitForm()">Submit</button>
+</div>
+
+</div>
+
+<div class="step" id="step3">
+
+<h2 class="success">
+✅ Registration Successful
+</h2>
+
+<p style="text-align:center;margin-top:10px;">
+Thank you for registering.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function validateCurrentStep(stepId){
+
+const fields =
+document.querySelectorAll(
+'#'+stepId+' input, #'+stepId+' textarea'
+);
+
+for(let field of fields){
+
+if(!field.checkValidity()){
+
+field.reportValidity();
+return false;
+
+}
+
+}
+
+return true;
+
+}
+
+function nextStep(step){
+
+if(step===2){
+
+if(!validateCurrentStep("step1"))
+return;
+
+}
+
+document.querySelectorAll(".step")
+.forEach(s=>s.classList.remove("active"));
+
+document
+.getElementById("step"+step)
+.classList.add("active");
+
+}
+
+function submitForm(){
+
+if(!validateCurrentStep("step2"))
+return;
+
+document.querySelectorAll(".step")
+.forEach(s=>s.classList.remove("active"));
+
+document
+.getElementById("step3")
+.classList.add("active");
+
+}
+
+</script>
+
+</body>
+</html>
